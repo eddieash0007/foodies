@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\TagsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +28,26 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'admin', 'middleware'=>'auth'], function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/posts', [PostsController::class, 'index'])->name('posts');
+
+    // Post Routes
+    Route::get('/posts', [PostController::class, 'index'])->name('posts');
+    Route::get('/posts/trashed', [PostController::class, 'trashed'])->name('posts.trashed');
+
+    // End Post Routes
+    
+
+    // Category Routes
+    Route::get('/categories', [CategoriesController::class, 'index'])->name('categories');
+    Route::get('/categories/trashed', [CategoriesController::class, 'trashed'])->name('categories.trashed');
+
+    // End Category Routes
+
+
+    // Tag Routes
+    Route::get('/tags', [TagsController::class, 'index'])->name('tags');
+    Route::get('/tags/trashed', [TagsController::class, 'trashed'])->name('tags.trashed');
+
+    // End Tag Routes
 });
 
 require __DIR__.'/auth.php';

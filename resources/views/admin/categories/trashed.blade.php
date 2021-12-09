@@ -1,7 +1,7 @@
 @extends('admin.layouts.admin')
 
 @section('view')
-  Posts
+  Categories
 @endsection
 
 @section('content')
@@ -9,7 +9,7 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Trashed posts</h3>
+          <h3 class="card-title">Trashed categories</h3>
 
           <div class="card-tools">
            
@@ -33,9 +33,8 @@
           <table class="table table-hover text-nowrap">
             <thead>
               <tr>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Date</th>
+                <th>Name</th>
+                <th>Description</th>
                 <th>Actions</th>
                
               </tr>
@@ -43,7 +42,6 @@
             <tbody>
               <tr>
                 
-                <td></td>
                 <td></td>
                 <td></td>
                 <td> 

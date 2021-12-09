@@ -44,13 +44,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link active">
+                            <a href="{{route('categories')}}" class="nav-link active">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>All Categories</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{route('categories.trashed')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Trashed Categories</p>
                             </a>
@@ -74,7 +74,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{route('posts.trashed')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Trashed Posts</p>
                             </a>
@@ -83,7 +83,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('tags')}}" class="nav-link">
                         <i class="nav-icon fas fa-tag"></i>
                         <p>
                             Tags

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class PostController extends Controller
+class TagsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('admin.posts.index');
+        return view ('admin.tags.index');
     }
 
     /**
@@ -80,10 +80,5 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function trashed()
-    {
-        return view ('admin.posts.trashed');
     }
 }
