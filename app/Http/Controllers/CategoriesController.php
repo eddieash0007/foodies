@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
+use Alert;
+use Illuminate\Support\Str;
+
 
 class CategoriesController extends Controller
 {
@@ -13,7 +17,8 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        return view ('admin.categories.index');
+        $category = Category::orderBy('updated_at', 'desc')->paginate(5);
+        return view ('admin.categories.index')->with('categories', $category);
     }
 
     /**
@@ -34,7 +39,27 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required',
+            'description' => 'required',
+            'image' => 'image|mimes:jpg,jpeg,png'
+
+        ]); 
+
+        $image = $request->image;
+        $image_new_name = time().$image->getClientOriginalName();
+        $image->move('uploads/posts',$image_new_name);
+
+        $category = Category::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'image' => 'uploads/posts/'.$image_new_name,
+            'slug' => Str::of($request->name)->slug('-'),
+            
+        ]);
+
+        Alert::toast('Category added successfully','success')->position('top-end');
+        return redirect()->route('categories');
     }
 
     /**
