@@ -48,12 +48,12 @@ class CategoriesController extends Controller
 
         $image = $request->image;
         $image_new_name = time().$image->getClientOriginalName();
-        $image->move('uploads/posts',$image_new_name);
+        $image->move('uploads/categories',$image_new_name);
 
         $category = Category::create([
             'name' => $request->name,
             'description' => $request->description,
-            'image' => 'uploads/posts/'.$image_new_name,
+            'image' => 'uploads/categories/'.$image_new_name,
             'slug' => Str::of($request->name)->slug('-'),
             
         ]);
@@ -70,8 +70,9 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -93,7 +94,26 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = Category::find($id);
+
+        if($request->hasFile('image'))
+        {
+            $image = $request->image;
+
+            $image_new_name = time().$image->getClientOriginalName();
+
+            $image->move('uploads/categories', $image_new_name);
+
+            $category->image = 'uploads/categories/'.$image_new_name;
+        }
+
+        $category->name = $request->name;
+        $category->description = $request->description;
+        $category->slug = Str::of($request->name)->slug('-');
+        $category->save();
+
+        Alert::toast('Category updated successfully','success')->position('top-end');
+        return redirect()->route('categories');
     }
 
     /**
@@ -104,11 +124,43 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+
+        $category->delete();
+
+        Alert::toast('Category trashed successfully','success')->position('top-end');
+         return redirect()->back();
+
     }
 
     public function trashed()
     {
-        return view ('admin.categories.trashed');
+        $categories = Category::onlyTrashed()->get();
+
+        return view('admin.categories.trashed')->with('categories', $categories);
+    }
+
+    public function kill($id)
+    {
+        $category = Category::withTrashed()->where('id', $id)->first();
+
+        $category->forceDelete();
+
+        Alert::toast('Category deleted permanently','success')->position('top-end');
+
+        return redirect()->back();
+
+    }
+
+    public function restore($id)
+    {
+        $category = Category::withTrashed()->where('id', $id)->first();
+
+        $category->restore();
+
+        Alert::toast('Category restored successfully','success')->position('top-end');
+
+        return redirect()->route('categories');
+
     }
 }

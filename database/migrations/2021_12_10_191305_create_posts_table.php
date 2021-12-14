@@ -17,9 +17,11 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('author');
-            $table->string('image');
+            $table->integer('category_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->string('image')->nullable();
             $table->string('post');
             $table->string('slug');
+            
             $table->softDeletes();
             $table->timestamps();
         });
@@ -33,5 +35,6 @@ class CreatePostsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('posts');
+        Schema::enableForeignKeyConstraints();
     }
 }
