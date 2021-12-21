@@ -41,18 +41,18 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                
-                <td></td>
-                <td></td>
-                <td></td>
-                <td> 
-                  <button class="btn btn-warning">View</button>
-                  <button class="btn btn-info">Edit</button>
-                  <button class="btn btn-danger">Delete</button>
-                </td>
-              </tr>
-              
+              @foreach ($posts as $post)
+                <tr>
+                  
+                  <td>{{$post->title}}</td>
+                  <td>{{$post->author}}</td>
+                  <td>{{$post->created_at}}</td>
+                  <td> 
+                    <button class="btn btn-success">Restore</button>
+                    <button class="btn btn-danger">Delete</button>
+                  </td>
+                </tr>
+              @endforeach
             </tbody>
           </table>
         </div>

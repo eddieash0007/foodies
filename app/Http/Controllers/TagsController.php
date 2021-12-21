@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Tag;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TagsController extends Controller
 {
@@ -13,7 +15,8 @@ class TagsController extends Controller
      */
     public function index()
     {
-        return view ('admin.tags.index');
+        $tag = Tag::all();
+        return view ('admin.tags.index')->with('tags', $tag);
     }
 
     /**
@@ -34,7 +37,16 @@ class TagsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name'=> 'required',
+        ]);
+
+        $tag = Tag::create([
+            'name' => $request->name,
+        ]);
+
+        Alert::toast('Tag added successfully','success')->position('top-end');
+        return redirect()->route('tags');
     }
 
     /**
@@ -45,7 +57,9 @@ class TagsController extends Controller
      */
     public function show($id)
     {
-        //
+       
+
+
     }
 
     /**
@@ -68,7 +82,15 @@ class TagsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $tag = Tag::find($id);
+
+        
+        $tag->name = $request->name;
+        $tag->save();
+
+        Alert::toast('Tag updated successfully','success')->position('top-end');
+        return redirect()->route('tags');
+
     }
 
     /**

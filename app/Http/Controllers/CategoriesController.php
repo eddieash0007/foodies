@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
-use Alert;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Str;
 
 
@@ -17,7 +17,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $category = Category::orderBy('updated_at', 'desc')->paginate(5);
+        $category = Category::orderBy('created_at', 'desc')->paginate(5);
         return view ('admin.categories.index')->with('categories', $category);
     }
 
@@ -46,17 +46,27 @@ class CategoriesController extends Controller
 
         ]); 
 
-        $image = $request->image;
-        $image_new_name = time().$image->getClientOriginalName();
-        $image->move('uploads/categories',$image_new_name);
+        $category = new Category;
+        if($request->hasFile('image')){
+            $image = $request->image;
+            $image_new_name = time().$image->getClientOriginalName();
+            $image->move('uploads/categories',$image_new_name);
+            $category->image = 'uploads/categories/'.$image_new_name;
+        }
 
-        $category = Category::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'image' => 'uploads/categories/'.$image_new_name,
-            'slug' => Str::of($request->name)->slug('-'),
+        $category->name = $request->name;
+        $category->description = $request->description;
+        $category->slug = Str::of($request->name)->slug('-');
+
+        $category->save();
+
+        // $category = Category::create([
+        //     'name' => $request->name,
+        //     'description' => $request->description,
+        //     'image' => 'uploads/categories/'.$image_new_name,
+        //     'slug' => Str::of($request->name)->slug('-'),
             
-        ]);
+        // ]);
 
         Alert::toast('Category added successfully','success')->position('top-end');
         return redirect()->route('categories');
@@ -126,6 +136,11 @@ class CategoriesController extends Controller
     {
         $category = Category::find($id);
 
+        foreach($category->posts as $post)
+       {
+            $post->forcedelete();
+       }
+
         $category->delete();
 
         Alert::toast('Category trashed successfully','success')->position('top-end');
@@ -143,6 +158,12 @@ class CategoriesController extends Controller
     public function kill($id)
     {
         $category = Category::withTrashed()->where('id', $id)->first();
+
+        if (file_exists($category->image)) {
+
+            @unlink($category->image);
+     
+        }
 
         $category->forceDelete();
 

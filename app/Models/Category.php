@@ -19,6 +19,8 @@ class Category extends Model
         return $this->hasMany('App\Models\Post');
     }
 
+    
+
     Protected $fillable = ['name','description','image','slug'];
 
 }

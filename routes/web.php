@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\TagsController;
 
@@ -30,8 +30,14 @@ Route::group(['prefix' => 'admin', 'middleware'=>'auth'], function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Post Routes
-    Route::get('/posts', [PostController::class, 'index'])->name('posts');
-    Route::get('/posts/trashed', [PostController::class, 'trashed'])->name('posts.trashed');
+    Route::get('/posts', [PostsController::class, 'index'])->name('posts');
+    Route::post('/post/store', [PostsController::class, 'store'])->name('post.store');
+    Route::get('/posts/trashed', [PostsController::class, 'trashed'])->name('posts.trashed');
+    Route::get('/post/create', [PostsController::class, 'create'])->name('posts.create');
+    Route::get('/post/update/{id}', [PostsController::class, 'update'])->name('post.update');
+    Route::get('/post/trash/{id}', [PostsController::class, 'destroy'])->name('post.destroy');
+    Route::get('/post/kill/{id}', [PostsController::class, 'kill'])->name('post.kill');
+    Route::get('/post/restore/{id}', [PostsController::class, 'restore'])->name('post.restore');
 
     // End Post Routes
     
@@ -50,6 +56,8 @@ Route::group(['prefix' => 'admin', 'middleware'=>'auth'], function(){
 
     // Tag Routes
     Route::get('/tags', [TagsController::class, 'index'])->name('tags');
+    Route::post('/tag/store', [TagsController::class, 'store'])->name('tag.store');
+    Route::post('/tag/update/{id}', [TagsController::class, 'update'])->name('tag.update');
     Route::get('/tags/trashed', [TagsController::class, 'trashed'])->name('tags.trashed');
 
     // End Tag Routes

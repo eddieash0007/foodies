@@ -21,8 +21,6 @@ Categories
                                 </button>
                             </div>
                         </div>
-                        
-
                     </div>
                     <button class="btn btn-primary btn-xs ml-2" data-toggle="modal" data-target="#createNew">
                         Add New

@@ -17,14 +17,15 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('author');
-            $table->integer('category_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->text('post');
             $table->string('image')->nullable();
-            $table->string('post');
             $table->string('slug');
-            
             $table->softDeletes();
             $table->timestamps();
+            $table->dropForeign(['category_id']);
         });
+        
     }
 
     /**
