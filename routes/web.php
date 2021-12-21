@@ -45,6 +45,7 @@ Route::group(['prefix' => 'admin', 'middleware'=>'auth'], function(){
     // Category Routes
     Route::get('/categories', [CategoriesController::class, 'index'])->name('categories');
     Route::get('/categories/trashed', [CategoriesController::class, 'trashed'])->name('categories.trashed');
+    Route::get('/categories/create', [CategoriesController::class, 'create'])->name('categories.create');
     Route::post('/category/store', [CategoriesController::class, 'store'])->name('category.store');
     Route::post('/category/update/{id}', [CategoriesController::class, 'update'])->name('category.update');
     Route::get('/category/trash/{id}', [CategoriesController::class, 'destroy'])->name('category.destroy');

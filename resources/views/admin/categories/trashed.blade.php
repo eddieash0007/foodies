@@ -48,11 +48,41 @@
                     <a href="{{route('category.restore', ['id'=> $category->id])}}"> 
                       <button class="btn btn-success">Restore</button>
                     </a>
-                    <a href="{{route('category.kill', ['id'=>$category->id] )}}">
-                      <button class="btn btn-danger">Delete</button>
-                    </a>
+                    
+                    <button class="btn btn-danger" data-toggle="modal"
+                      data-target="#delete-category-{{$category->id}}">Delete
+                    </button>
+                   
                   </td>
               </tr>
+            {{--delete modal --}}
+              <div class="modal fade bd-example-modal-lg" id="delete-category-{{$category->id}}" tabindex="-1"
+                role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-danger">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Danger</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" style="color: white">&times;</span>
+                            </button>
+                        </div>
+                            <div class="modal-body">
+                                <p> Are you sure you want to permanently delete <b>{{$category->name}}</b>?</p>
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                    data-dismiss="modal">No
+                                </button>
+                                <a href="{{route('category.kill',['id'=>$category->id] )}}">
+                                    <button type="submit" class="btn btn-primary">Yes</button>
+                                </a>
+                            </div>
+                    </div>
+                    
+                </div>
+              </div>
+            {{-- end delete modal  --}}
               @endforeach
             </tbody>
           </table>

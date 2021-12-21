@@ -14,7 +14,8 @@ Categories
                 <div class="d-flex float-right">
                     <div class="card-tools">
                         <div class="input-group input-group-sm" style="width: 150px;">
-                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                            <input type="text" name="table_search" class="form-control float-right"
+                                placeholder="Search">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-default">
                                     <i class="fas fa-search"></i>
@@ -22,9 +23,11 @@ Categories
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-primary btn-xs ml-2" data-toggle="modal" data-target="#createNew">
-                        Add New
-                    </button>
+                    <a href="{{route('categories.create')}}">
+                        <button class="btn btn-primary btn-xs ml-2">
+                            Add New
+                        </button>
+                    </a>
                 </div>
             </div>
             <!-- /.card-header -->
@@ -51,10 +54,12 @@ Categories
 
                                 <button class="btn btn-info" data-toggle="modal"
                                     data-target="#edit-category-{{$category->id}}">Edit</button>
-                                <a href="{{route('category.destroy',['id'=>$category->id] )}}">
-                                    <button class="btn btn-danger">Delete</button>
-                                </a>
+
+                                <button class="btn btn-danger" data-toggle="modal"
+                                    data-target="#delete-category-{{$category->id}}">Delete</button>
+
                             </td>
+                            
                         </tr>
                         <!--view modal -->
                         <div class="modal fade bd-example-modal-lg" id="view-category-{{$category->id}}" tabindex="-1"
@@ -130,6 +135,38 @@ Categories
                             </div>
                         </div>
                         {{-- end edit modal  --}}
+
+                        {{--delete modal --}}
+                        <div class="modal fade bd-example-modal-lg" id="delete-category-{{$category->id}}" tabindex="-1"
+                            role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-sm" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-danger">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Danger</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true" style="color: white">&times;</span>
+                                        </button>
+                                    </div>
+                                    
+                                        <div class="modal-body">
+                                            <p> Are you sure you want to trash <b>{{$category->name}}</b>?</p>
+                                            <p>Trashing <b>{{$category->name}}</b> will permanently delete any associated
+                                                posts !!!</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">No
+                                            </button>
+                                            <a href="{{route('category.destroy',['id'=>$category->id] )}}">
+                                                <button type="submit" class="btn btn-primary">Yes</button>
+                                            </a>
+                                        </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        {{-- end delete modal  --}}
+
                         @endforeach
                         @else
                         <tr>
@@ -149,43 +186,7 @@ Categories
         <!-- /.card -->
 
     </div>
-    {{--create modal --}}
-    <div class="modal fade bd-example-modal-lg" id="createNew" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Create a new category</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="{{route('category.store')}}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="category_name">Name</label>
-                            <input type="text" name="name" class="form-control" placeholder="Enter category name">
-                        </div>
-                        <div class="form-group">
-                            <label for="category">Category Image</label>
-                            <input type="file" name="image" class="form-control" id="customFile">
-                        </div>
-                        <div class="form-group">
-                            <label for="category_name">Description</label>
-                            <textarea name="description" id="description" cols="30" rows="10"
-                                placeholder="Enter category description"></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-            </div>
-            </form>
-        </div>
-    </div>
-    {{-- end create modal  --}}
+
 
 
 

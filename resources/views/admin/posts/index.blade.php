@@ -24,9 +24,11 @@ Posts
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-primary btn-xs ml-2" data-toggle="modal" data-target="#createNew">
-                        Add New
-                    </button>
+                    <a href="{{route('posts.create')}}">
+                        <button class="btn btn-primary btn-xs ml-2" data-toggle="modal" data-target="#createNew">
+                            Add New
+                        </button>
+                    </a>
                 </div>
 
             </div>
@@ -43,20 +45,21 @@ Posts
                         </tr>
                     </thead>
                     <tbody>
-                      @if ($posts->count()>0)
-                      @foreach ($posts as $post)                    
-                          <tr>
+                        @if ($posts->count()>0)
+                        @foreach ($posts as $post)
+                        <tr>
                             <td>{{$post->title}}</td>
                             <td>{{$post->author}}</td>
                             <td>{{$post->created_at->toFormattedDateString()}}</td>
                             <td>
                                 <button class="btn btn-warning" data-toggle="modal"
-                                data-target="#view-post-{{$post->id}}">View</button>
+                                    data-target="#view-post-{{$post->id}}">View</button>
                                 <button class="btn btn-info" data-toggle="modal"
-                                data-target="#edit-post-{{$post->id}}">Edit</button>
-                                <a href="{{route('post.destroy',['id'=>$post->id] )}}">
-                                    <button class="btn btn-danger">Delete</button>
-                                </a>
+                                    data-target="#edit-post-{{$post->id}}">Edit</button>
+
+                                <button class="btn btn-danger" data-toggle="modal"
+                                    data-target="#trash-post-{{$post->id}}">Delete</button>
+
                             </td>
                         </tr>
                         <!--view modal -->
@@ -123,10 +126,10 @@ Posts
                                                     @foreach ($categories as $category)
                                                     <option value="{{$category->id}}" <?php if ($category->id == $post->category_id) {
                                                         echo 'selected';
-                                                    } ?> >{{$category->name}}</option>
+                                                    } ?>>{{$category->name}}</option>
                                                     @endforeach
                                                 </select>
-                                                </div>
+                                            </div>
                                             <div class="form-group">
                                                 <label for="category">Post Image</label>
                                                 <input type="file" name="image" class="form-control" id="customFile">
@@ -147,12 +150,40 @@ Posts
                             </div>
                         </div>
                         {{-- end edit modal  --}}
-                      @endforeach                       
-                      @else
-                      <tr>
-                        <th colspan="5" class="text-center">No Uploaded Posts</th>
-                      </tr>
-                      @endif
+                        {{-- trash-modal --}}
+                        <div class="modal fade bd-example-modal-lg" id="trash-post-{{$post->id}}" tabindex="-1"
+                            role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-sm" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-danger">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Danger</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true" style="color: white">&times;</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <p> Are you sure you want to trash <b>{{$post->title}}</b>?</p>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No
+                                        </button>
+                                        <a href="{{route('post.destroy',['id'=>$post->id] )}}">
+                                            <button type="button" class="btn btn-primary">Yes</button>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        {{-- end-trash-modal --}}
+                        @endforeach
+                        @else
+                        <tr>
+                            <th colspan="5" class="text-center">No Uploaded Posts</th>
+                        </tr>
+                        @endif
 
                     </tbody>
                 </table>
@@ -161,51 +192,7 @@ Posts
         </div>
         <!-- /.card -->
     </div>
-    <div class="modal fade bd-example-modal-lg" id="createNew" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Create a new post</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-              
-                <form action="{{route('post.store')}}" method="POST"  enctype="multipart/form-data">
-                  @csrf
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="post_title">Title</label>
-                            <input type="text" name="title" class="form-control" placeholder="Enter post title">
-                        </div>
-                        <div class="form-group">
-                        <label>Select Category</label>
-                        <select class="form-control" name="category_id">
-                            <option value="">Select a Category</option>
-                            @foreach ($categories as $category)
-                                <option name="{{$category->name}}" value="{{$category->id}}">{{$category->name}}</option>
-                            @endforeach
-                        </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="post_image">Image</label>
-                            <input type="file" name="image" class="form-control" id="customFile">
-                        </div>
-                        <div class="form-group">
-                            <label for="Post">Post</label>
-                            <textarea name="post" id="post" cols="30" rows="10" placeholder="Type post here..."></textarea>
-                        </div>
-                    </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 </div>
 @endsection
 

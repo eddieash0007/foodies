@@ -42,6 +42,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{route('categories.create')}}" class="nav-link active">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create Categories</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{route('categories.trashed')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Trashed Categories</p>
@@ -63,6 +69,12 @@
                             <a href="{{route('posts')}}" class="nav-link active">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>All Posts</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('posts.create')}}" class="nav-link active">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Create Posts</p>
                             </a>
                         </li>
                         <li class="nav-item">
