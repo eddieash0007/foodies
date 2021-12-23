@@ -101,6 +101,10 @@ class TagsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tag = Tag::find($id);
+        $tag->delete();
+
+        Alert::toast('Post trashed successfully','success')->position('top-end');
+        return redirect()->back();
     }
 }

@@ -54,8 +54,9 @@ Posts
                             <td>
                                 <button class="btn btn-warning" data-toggle="modal"
                                     data-target="#view-post-{{$post->id}}">View</button>
-                                <button class="btn btn-info" data-toggle="modal"
-                                    data-target="#edit-post-{{$post->id}}">Edit</button>
+                                <a href="{{route('post.edit', ['id' => $post->id])}}">
+                                    <button class="btn btn-info">Edit</button>
+                                </a>
 
                                 <button class="btn btn-danger" data-toggle="modal"
                                     data-target="#trash-post-{{$post->id}}">Delete</button>
@@ -83,8 +84,15 @@ Posts
                                                     <label for="post_category">Category</label>
                                                     <p>{{$post->category->name ?? 'None'}}</p>
 
+                                                    <label for="post_post">Tags</label>
+                                                    
+                                                    @foreach ($post->tags as $tag)
+                                                        <p>{{$tag->name}}</p>
+                                                    @endforeach
+                                                
+                                                    <br>
                                                     <label for="post_post">Post</label>
-                                                    <p>{{$post->post}}</p>
+                                                    <p>{!!$post->post!!}</p>
                                                 </div>
                                                 <div class="col-md-4 ml-auto">
                                                     <img src="{{asset($post->image)}}" alt="{{$post->image}}">

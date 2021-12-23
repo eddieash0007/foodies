@@ -21,6 +21,7 @@ class CreatePostsTable extends Migration
             $table->text('post');
             $table->string('image')->nullable();
             $table->string('slug');
+            $table->boolean('tag')->nullable();
             $table->softDeletes();
             $table->timestamps();
             $table->dropForeign(['category_id']);

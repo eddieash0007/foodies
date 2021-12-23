@@ -31,6 +31,14 @@ Create A New Post
                     <input type="file" name="image" class="form-control" id="customFile">
                 </div>
                 <div class="form-group">
+                    <label for="productstatus">Tag(s)</label>
+                   @foreach ($tags as $tag)
+                      <div class="checkbox">
+                          <label><input type="checkbox" name="tags[]" value={{$tag->id}}>&nbsp;&nbsp;{{ $tag->name }}</label>
+                      </div>           
+                   @endforeach
+                  </div>
+                <div class="form-group">
                     <label for="Post">Post</label>
                     <textarea name="post" id="post" cols="30" rows="10" placeholder="Type post here..."></textarea>
                 </div>

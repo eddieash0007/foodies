@@ -14,10 +14,15 @@ class Post extends Model
 
     protected $dates = ['deleted_at'];
 
-    Protected $fillable = ['title','post','author','description','image','slug'];
+    Protected $fillable = ['title','post','author','description','image','slug','tag'];
 
     public function category()
     {
        return $this->belongsTo(Category::class,'category_id');
     }    
+
+    public function tags()
+    {
+        return $this->belongsToMany('App\Models\Tag');
+    }
 }

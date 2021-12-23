@@ -42,54 +42,82 @@ Tags
                         </tr>
                     </thead>
                     <tbody>
-                      @if ($tags->count()>0)
-                      @foreach ($tags as $tag)
+                        @if ($tags->count()>0)
+                        @foreach ($tags as $tag)
                         <tr>
-                              <td>{{$tag->name}}</td>
-                              <td>
-                                  
-                                  <button class="btn btn-info" data-toggle="modal"
+                            <td>{{$tag->name}}</td>
+                            <td>
+
+                                <button class="btn btn-info" data-toggle="modal"
                                     data-target="#edit-tag-{{$tag->id}}">Edit</button>
-                                  <button class="btn btn-danger">Delete</button>
-                              </td>
+                                <button class="btn btn-danger" data-toggle="modal"
+                                    data-target="#delete-tag-{{$tag->id}}">Delete</button>
+                            </td>
                         </tr>
                         {{--edit modal --}}
                         <div class="modal fade bd-example-modal-lg" id="edit-tag-{{$tag->id}}" tabindex="-1"
-                          role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                          <div class="modal-dialog modal-lg" role="document">
-                              <div class="modal-content">
-                                  <div class="modal-header">
-                                      <h5 class="modal-title" id="exampleModalLongTitle">Edit: {{$tag->name}}
-                                      </h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                      </button>
-                                  </div>
-                                  <form action="{{route('tag.update', ['id'=>$tag->id])}}" method="POST">
-                                      @csrf
-                                      <div class="modal-body">
-                                          <div class="form-group">
-                                              <label for="category_name">Name</label>
-                                              <input type="text" name="name" class="form-control"
-                                                  placeholder="Enter tag" value="{{$tag->name}}">
-                                          </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary"
-                                              data-dismiss="modal">Close</button>
-                                          <button type="submit" class="btn btn-primary">Save</button>
-                                      </div>
-                              </div>
-                              </form>
-                          </div>
-                      </div>
-                      {{-- end edit modal  --}}
-                      @endforeach
-                      @else
+                            role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Edit: {{$tag->name}}
+                                        </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="{{route('tag.update', ['id'=>$tag->id])}}" method="POST">
+                                        @csrf
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="category_name">Name</label>
+                                                <input type="text" name="name" class="form-control"
+                                                    placeholder="Enter tag" value="{{$tag->name}}">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                        </div>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                        {{-- end edit modal  --}}
+                        {{--delete modal --}}
+                        <div class="modal fade bd-example-modal-lg" id="delete-tag-{{$tag->id}}" tabindex="-1"
+                            role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-sm" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-danger">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Danger</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true" style="color: white">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p> Are you sure you want to permanently delete <b>{{$tag->name}}</b>?</p>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No
+                                        </button>
+                                        <a href="{{route('tag.destroy',['id'=>$tag->id] )}}">
+                                            <button type="submit" class="btn btn-primary">Yes</button>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        {{-- end delete modal  --}}
+                        @endforeach
+                        @else
                         <tr>
-                          <th colspan="5" class="text-center">No Uploaded Tags</th>
+                            <th colspan="5" class="text-center">No Uploaded Tags</th>
                         </tr>
-                      @endif
+                        @endif
                     </tbody>
                 </table>
             </div>
@@ -107,9 +135,9 @@ Tags
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-              
+
                 <form action="{{route('tag.store')}}" method="POST">
-                  @csrf
+                    @csrf
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="tag">Tag</label>

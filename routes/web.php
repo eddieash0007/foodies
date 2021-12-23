@@ -20,6 +20,9 @@ use App\Http\Controllers\TagsController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/test', function () {
+    return App\Models\Tag::find(1)->posts;
+});
 
 
 
@@ -34,6 +37,7 @@ Route::group(['prefix' => 'admin', 'middleware'=>'auth'], function(){
     Route::post('/post/store', [PostsController::class, 'store'])->name('post.store');
     Route::get('/posts/trashed', [PostsController::class, 'trashed'])->name('posts.trashed');
     Route::get('/post/create', [PostsController::class, 'create'])->name('posts.create');
+    Route::get('/post/edit/{id}', [PostsController::class, 'edit'])->name('post.edit');
     Route::get('/post/update/{id}', [PostsController::class, 'update'])->name('post.update');
     Route::get('/post/trash/{id}', [PostsController::class, 'destroy'])->name('post.destroy');
     Route::get('/post/kill/{id}', [PostsController::class, 'kill'])->name('post.kill');
@@ -59,7 +63,7 @@ Route::group(['prefix' => 'admin', 'middleware'=>'auth'], function(){
     Route::get('/tags', [TagsController::class, 'index'])->name('tags');
     Route::post('/tag/store', [TagsController::class, 'store'])->name('tag.store');
     Route::post('/tag/update/{id}', [TagsController::class, 'update'])->name('tag.update');
-    Route::get('/tags/trashed', [TagsController::class, 'trashed'])->name('tags.trashed');
+    Route::get('/tags/destroy/{id}', [TagsController::class, 'destroy'])->name('tag.destroy');
 
     // End Tag Routes
 });

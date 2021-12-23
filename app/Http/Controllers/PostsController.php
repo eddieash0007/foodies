@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -32,7 +33,17 @@ class PostsController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view ('admin.posts.create')->with('categories',$categories);
+        $tags = Tag::all();
+
+        if($categories->count()==0 || $tags->count() == 0)
+        {
+            Alert::warning('Caution','You need create a categories and tag(s) before creating a post');
+           
+            return redirect()->back();
+        }
+
+        return view ('admin.posts.create')->with('tags',$tags)
+                                          ->with('categories',$categories);
     }
 
     /**
@@ -63,9 +74,10 @@ class PostsController extends Controller
         $post->post = $request->post;
         $post->author = Auth::user()->name;
         $post->slug = Str::of($request->title)->slug('-');
+        
 
         $post->save();
-       
+        $post->tags()->attach($request->tags);
 
 
         // $post = Post::create([
@@ -98,7 +110,10 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $posts = Post::find($id);
+        $categories = Category::all();
+        return view ('admin.posts.edit')->with('categories',$categories)
+                                         ->with('post',$posts);
     }
 
     /**
@@ -110,7 +125,23 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::find($id);
+
+        if ($request->hasFile('image')){
+            $image = $request->image;
+            $image_new_name = time().$image->getClientOriginalName();
+            $image->move('uploads/posts',$image_new_name);
+            $post->image = 'uploads/posts/'.$image_new_name;
+        }
+
+
+        $post->title = $request->title;
+        $post->category_id = $request->category_id;
+        $post->post = $request->post;
+        $post->author = Auth::user()->name;
+        $post->slug = Str::of($request->title)->slug('-');
+
+        $post->tags()->sync($request->tags);
     }
 
     /**
