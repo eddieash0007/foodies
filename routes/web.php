@@ -20,9 +20,14 @@ use App\Http\Controllers\TagsController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/test', function () {
-    return App\Models\Tag::find(1)->posts;
-});
+
+
+
+
+
+// Route::get('/test', function () {
+//     return App\Models\Tag::find(1)->posts;
+// });
 
 
 
@@ -38,7 +43,7 @@ Route::group(['prefix' => 'admin', 'middleware'=>'auth'], function(){
     Route::get('/posts/trashed', [PostsController::class, 'trashed'])->name('posts.trashed');
     Route::get('/post/create', [PostsController::class, 'create'])->name('posts.create');
     Route::get('/post/edit/{id}', [PostsController::class, 'edit'])->name('post.edit');
-    Route::get('/post/update/{id}', [PostsController::class, 'update'])->name('post.update');
+    Route::post('/post/update/{id}', [PostsController::class, 'update'])->name('post.update');
     Route::get('/post/trash/{id}', [PostsController::class, 'destroy'])->name('post.destroy');
     Route::get('/post/kill/{id}', [PostsController::class, 'kill'])->name('post.kill');
     Route::get('/post/restore/{id}', [PostsController::class, 'restore'])->name('post.restore');

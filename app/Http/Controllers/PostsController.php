@@ -142,6 +142,9 @@ class PostsController extends Controller
         $post->slug = Str::of($request->title)->slug('-');
 
         $post->tags()->sync($request->tags);
+
+        Alert::toast('Post updated successfully','success')->position('top-end');
+        return redirect()->route('posts');
     }
 
     /**
