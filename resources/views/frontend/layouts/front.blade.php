@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Moschino | Minimalist Free HTML Portfolio by WowThemes.net</title>
-<link rel='stylesheet' href='{{asset('frontend/css/woocommerce-layout.css')}}' type='text/css' media='all'/>
-<link rel='stylesheet' href='{{asset('frontend/css/woocommerce-smallscreen.css')}}' type='text/css' media='only screen and (max-width: 768px)'/>
+<link rel='stylesheet' href="{{asset('frontend/css/woocommerce-layout.css')}}" type='text/css' media='all'/>
+<link rel='stylesheet' href="{{asset('frontend/css/woocommerce-smallscreen.css')}}" type='text/css' media='only screen and (max-width: 768px)'/>
 <link rel='stylesheet' href='{{asset('frontend/css/woocommerce.css')}}' type='text/css' media='all'/>
-<link rel='stylesheet' href='{{asset('frontend/css/font-awesome.min.css')}}' type='text/css' media='all'/>
-<link rel='stylesheet' href='{{asset('frontend/style.css')}}' type='text/css' media='all'/>
+<link rel='stylesheet' href="{{asset('frontend/css/font-awesome.min.css')}}" type='text/css' media='all'/>
+<link rel='stylesheet' href="{{asset('frontend/css/style.css')}}" type='text/css' media='all'/>
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700' type='text/css' media='all'/>
-<link rel='stylesheet' href='{{asset('frontend/css/easy-responsive-shortcodes.css')}}' type='text/css' media='all'/>
+<link rel='stylesheet' href="{{asset('frontend/css/easy-responsive-shortcodes.css')}}" type='text/css' media='all'/>
 </head>
 <body class="home page page-template page-template-template-portfolio page-template-template-portfolio-php">
 <div id="page">
@@ -150,9 +150,9 @@
 	<a href="#top" class="smoothup" title="Back to top"><span class="genericon genericon-collapse"></span></a>
 </div>
 <!-- #page -->
-<script src='{{asset('frontend/js/jquery.js')}}'></script>
+<script src="{{asset('frontend/js/jquery.js')}}"></script>
 <script src='{{asset('frontend/js/plugins.js')}}'></script>
-<script src='{{asset('frontend/js/scripts.js')}}'></script>
-<script src='{{asset('frontend/js/masonry.pkgd.min.js')}}'></script>
+<script src="{{asset('frontend/js/scripts.js')}}"></script>
+<script src="{{asset('frontend/js/masonry.pkgd.min.js')}}"></script>
 </body>
 </html>
