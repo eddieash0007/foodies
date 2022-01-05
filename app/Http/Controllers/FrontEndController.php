@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Category;
 use App\Models\Tag;
 use App\Models\User;
 
@@ -22,8 +23,12 @@ class FrontEndController extends Controller
 
     public function postSingle($slug)
     {
-        $post = Post::find($slug);
-        return view('frontend.postSingle')->with('post', $post);
+        $post = Post::where('slug',$slug)->first();
+        $category = Category::all();
+        $tags = Tag::all();
+        return view('frontend.postSingle')->with('post', $post)
+                                          ->with('category', $category)
+                                          ->with('tags', $tags);
     }
 
 
