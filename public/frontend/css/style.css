@@ -1999,6 +1999,7 @@ ul.shortcode-archive li {
 	margin-bottom:30px;
 }
 a.portfoliotype {
+	text-transform: lowercase;
 	text-decoration:none;
 	margin-right:5px;
 	font-style:italic;

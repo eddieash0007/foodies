@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\TagsController;
+use App\Http\Controllers\FrontEndController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +18,11 @@ use App\Http\Controllers\TagsController;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.index');
-});
+
+Route::get('/', [FrontEndController::class, 'index'])->name('frontend.index');
+Route::get('/about', [FrontEndController::class, 'about'])->name('frontend.about');
+Route::get('/{slug}', [FrontEndController::class, 'postSingle'])->name('frontend.post.single');
+
 
 
 
