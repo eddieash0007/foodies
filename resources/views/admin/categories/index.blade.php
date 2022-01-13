@@ -83,11 +83,10 @@ Categories
                                                     <p>{!!$category->description!!}</p>
                                                 </div>
                                                 <div class="col-md-4 ml-auto">
-                                                    <canvas id="myCanvas" width="240" height="297"
-                                                        style="border:1px solid #d3d3d3;">
-                                                        Your browser does not support the HTML5 canvas tag.
-                                                    </canvas>
-                                                    <img src="{{asset($category->image)}}" alt="{{$category->image}}">
+                                                    <div>
+                                                        <img src="{{asset($category->image)}}" alt="{{$category->image}}" style="width: 15rem; height: 20rem;">
+                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
