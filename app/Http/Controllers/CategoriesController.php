@@ -106,6 +106,8 @@ class CategoriesController extends Controller
     {
         $category = Category::find($id);
 
+        
+
         if($request->hasFile('image'))
         {
             $image = $request->image;

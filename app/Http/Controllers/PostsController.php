@@ -111,9 +111,11 @@ class PostsController extends Controller
     public function edit($id)
     {
         $posts = Post::find($id);
+        $tags = Tag::all();
         $categories = Category::all();
         return view ('admin.posts.edit')->with('categories',$categories)
-                                         ->with('post',$posts);
+                                         ->with('post',$posts)
+                                         ->with('tags',$tags);
     }
 
     /**
@@ -127,10 +129,11 @@ class PostsController extends Controller
     {
         $post = Post::find($id);
 
+       
         if ($request->hasFile('image')){
             $image = $request->image;
             $image_new_name = time().$image->getClientOriginalName();
-            $image->move('uploads/posts',$image_new_name);
+            $image->move('uploads/posts', $image_new_name);
             $post->image = 'uploads/posts/'.$image_new_name;
         }
 
@@ -140,6 +143,7 @@ class PostsController extends Controller
         $post->post = $request->post;
         $post->author = Auth::user()->name;
         $post->slug = Str::of($request->title)->slug('-');
+        $post->save();
 
         $post->tags()->sync($request->tags);
 

@@ -21,7 +21,7 @@ use App\Http\Controllers\FrontEndController;
 
 Route::get('/', [FrontEndController::class, 'index'])->name('frontend.index');
 Route::get('/about', [FrontEndController::class, 'about'])->name('frontend.about');
-Route::get('/{slug}', [FrontEndController::class, 'postSingle'])->name('frontend.post.single');
+Route::get('/post/{slug}', [FrontEndController::class, 'postSingle'])->name('frontend.post.single');
 
 
 

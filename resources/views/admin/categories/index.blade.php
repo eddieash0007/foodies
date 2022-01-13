@@ -46,7 +46,7 @@ Categories
                         @foreach ($categories as $category)
                         <tr>
                             <td>{{$category->name}}</td>
-                            <td>{!!Str::limit($category->description, 10)!!}</td>
+                            <td>{!!Str::limit($category->description, 20)!!}</td>
                             <td>
 
                                 <button class="btn btn-warning" data-toggle="modal"
@@ -83,6 +83,10 @@ Categories
                                                     <p>{!!$category->description!!}</p>
                                                 </div>
                                                 <div class="col-md-4 ml-auto">
+                                                    <canvas id="myCanvas" width="240" height="297"
+                                                        style="border:1px solid #d3d3d3;">
+                                                        Your browser does not support the HTML5 canvas tag.
+                                                    </canvas>
                                                     <img src="{{asset($category->image)}}" alt="{{$category->image}}">
                                                 </div>
                                             </div>
@@ -121,7 +125,7 @@ Categories
                                             </div>
                                             <div class="form-group">
                                                 <label for="category_name">Description</label>
-                                                <textarea name="{{$category->id}}" id="description" cols="30" rows="10"
+                                                <textarea value="{{$category->description}}" name="description" id="description" cols="30" rows="10"
                                                     placeholder="Edit your category description here">{{$category->description}}</textarea>
                                             </div>
                                         </div>
