@@ -95,7 +95,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('settings')}}" class="nav-link">
                         <i class="nav-icon fas fa-cog"></i>
                         <p>
                             Site Settings

@@ -6,6 +6,7 @@ use App\Http\Controllers\PostsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\FrontEndController;
+use App\Http\Controllers\SettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +39,17 @@ Route::get('/post/{slug}', [FrontEndController::class, 'postSingle'])->name('fro
 
 
 Route::group(['prefix' => 'admin', 'middleware'=>'auth'], function(){
+
+    // Dashboard Routes
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // End Dashboard Routes
+
+    // Settings Routes
+    Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
+
+    // End Settings Routes
+
 
     // Post Routes
     Route::get('/posts', [PostsController::class, 'index'])->name('posts');
