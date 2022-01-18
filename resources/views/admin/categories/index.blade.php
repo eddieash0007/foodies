@@ -13,14 +13,16 @@ Categories
 
                 <div class="d-flex float-right">
                     <div class="card-tools">
-                        <div class="input-group input-group-sm" style="width: 150px;">
-                            <input type="text" name="table_search" class="form-control float-right"
-                                placeholder="Search">
-                            <div class="input-group-append">
+                        <div id="#searchDiv"class="input-group input-group-sm" style="width: 150px;">
+                            
+                                <input type="text" name="table_search" class="form-control float-right"
+                                    placeholder="Search" id="search-categories">
+                            
+                            {{-- <div class="input-group-append">
                                 <button type="submit" class="btn btn-default">
                                     <i class="fas fa-search"></i>
                                 </button>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <a href="{{route('categories.create')}}">
@@ -193,8 +195,8 @@ Categories
 
 
 
-
 </div>
+
 
 @endsection
 
@@ -204,10 +206,15 @@ Categories
         .catch(error => {
             console.error(error);
         });
-    // ClassicEditor.create(document.querySelector('#description2'))
-    //     .catch(error => {
-    //         console.error(error);
-    //     });
+    
 
 </script>
+<script type="text/javascript">
+    $('#searchDiv').on('keyup', '#search-categories', function(){
+        var searchQuery = $(this).val();
+        console.log(searchQuery)
+    });
+</script>
+
+
 @endsection

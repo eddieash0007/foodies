@@ -19,6 +19,12 @@ class TagsController extends Controller
         return view ('admin.tags.index')->with('tags', $tag);
     }
 
+
+    public function search()
+    {
+        //
+    }
+
     /**
      * Show the form for creating a new resource.
      *

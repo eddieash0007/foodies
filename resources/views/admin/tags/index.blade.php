@@ -15,7 +15,7 @@ Tags
                     <div class="card-tools">
 
                         <div class="input-group input-group-sm" style="width: 150px;">
-                            <input type="text" name="table_search" class="form-control float-right"
+                            <input type="text" id="search" name="table_search" class="form-control search float-right"
                                 placeholder="Search">
 
                             <div class="input-group-append">
@@ -154,4 +154,29 @@ Tags
         </div>
     </div>
 </div>
+
+<input type="text" id="search">
+
+@endsection
+
+@section('script')
+    <script>
+        $('body').on('keyup','#search',function(){
+            var searchQuery = $(this).val();
+            
+            $.ajax({
+                method: 'POST',
+                url: '{{  route("tag.search")}}',
+                dataType: 'json',
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    searchQuery: searchQuery
+                },
+                success: function(res){
+                    //
+                }
+            })
+        });        
+    </script>    
+
 @endsection

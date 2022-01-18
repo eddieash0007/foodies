@@ -72,6 +72,18 @@ class CategoriesController extends Controller
         return redirect()->route('categories');
     }
 
+    public function search(Request $request)
+    {
+        $categories = Category::all();
+        if($request->keyword != ''){
+            $categories = Category::where('name','LIKE','%'.$request->keyword.'%')->get();
+        }
+
+        return response()->json([
+            'categories' => $categories
+        ]);
+    }
+
     /**
      * Display the specified resource.
      *

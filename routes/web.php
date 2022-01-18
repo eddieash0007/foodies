@@ -6,7 +6,7 @@ use App\Http\Controllers\PostsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\FrontEndController;
-use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +46,8 @@ Route::group(['prefix' => 'admin', 'middleware'=>'auth'], function(){
     // End Dashboard Routes
 
     // Settings Routes
-    Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
+    Route::get('/settings', [SettingController::class, 'index'])->name('settings');
+    Route::post('/settings/update', [SettingController::class, 'update'])->name('settings.update');
 
     // End Settings Routes
 
@@ -74,7 +75,7 @@ Route::group(['prefix' => 'admin', 'middleware'=>'auth'], function(){
     Route::get('/category/trash/{id}', [CategoriesController::class, 'destroy'])->name('category.destroy');
     Route::get('/category/kill/{id}', [CategoriesController::class, 'kill'])->name('category.kill');
     Route::get('/category/restore/{id}', [CategoriesController::class, 'restore'])->name('category.restore');
-
+    Route::get('/categories/search', [CategoriesController::class, 'search'])->name('category.search');
     // End Category Routes
 
 
@@ -83,6 +84,7 @@ Route::group(['prefix' => 'admin', 'middleware'=>'auth'], function(){
     Route::post('/tag/store', [TagsController::class, 'store'])->name('tag.store');
     Route::post('/tag/update/{id}', [TagsController::class, 'update'])->name('tag.update');
     Route::get('/tags/destroy/{id}', [TagsController::class, 'destroy'])->name('tag.destroy');
+    Route::get('/tags/search', [TagsController::class, 'search'])->name('tag.search');
 
     // End Tag Routes
 });
